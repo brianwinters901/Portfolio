@@ -23,6 +23,6 @@ Motivated professional with experience in leadership, customer service, operatio
 - Currently pursuing technology and AI-focused professional development
 
 ## Contact
-LinkedIn: Add your LinkedIn URL here
-GitHub: Add your GitHub profile URL here
+LinkedIn: https://www.linkedin.com/in/brian-winters-71b917413
+GitHub: github.com/brianwinters901
 My professional portfolio and project showcase.
