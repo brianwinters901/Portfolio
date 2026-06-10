@@ -1,4 +1,13 @@
-const JOB_KEYWORDS = {
+export interface ResumeAnalysis {
+  score: number;
+  strengths: string[];
+  weaknesses: string[];
+  missingKeywords: string[];
+  improvedBullets: string[];
+  recommendation: string;
+}
+
+const JOB_KEYWORDS: Record<string, string[]> = {
   "software engineer": ["javascript", "python", "git", "api", "agile", "testing", "debugging", "algorithms", "database", "cloud"],
   "frontend developer": ["html", "css", "javascript", "react", "responsive", "accessibility", "ui", "ux", "typescript", "performance"],
   "backend developer": ["api", "database", "sql", "node", "python", "microservices", "security", "scalability", "rest", "cloud"],
@@ -28,11 +37,11 @@ const WEAK_PHRASES = [
   "etc",
 ];
 
-function normalizeText(text) {
+function normalizeText(text: string): string {
   return text.toLowerCase().trim();
 }
 
-function getKeywordsForJob(jobTitle) {
+function getKeywordsForJob(jobTitle: string): string[] {
   const normalized = normalizeText(jobTitle);
   for (const [role, keywords] of Object.entries(JOB_KEYWORDS)) {
     if (role !== "default" && normalized.includes(role)) {
@@ -41,7 +50,7 @@ function getKeywordsForJob(jobTitle) {
   }
 
   const words = normalized.split(/\s+/).filter((w) => w.length > 2);
-  const matched = new Set();
+  const matched = new Set<string>();
 
   for (const [role, keywords] of Object.entries(JOB_KEYWORDS)) {
     if (role === "default") continue;
@@ -58,7 +67,7 @@ function getKeywordsForJob(jobTitle) {
   return [...JOB_KEYWORDS.default, ...words.filter((w) => w.length > 3)];
 }
 
-function extractBulletPoints(resume) {
+function extractBulletPoints(resume: string): string[] {
   return resume
     .split("\n")
     .map((line) => line.trim())
@@ -67,24 +76,24 @@ function extractBulletPoints(resume) {
     .filter((line) => line.length > 10);
 }
 
-function countMetrics(text) {
+function countMetrics(text: string): number {
   const matches = text.match(/\d+[%$kKmM]?|\d+\s*(?:percent|%|users|clients|customers|team members|projects)/gi);
   return matches ? matches.length : 0;
 }
 
-function hasActionVerb(text) {
+function hasActionVerb(text: string): boolean {
   const lower = normalizeText(text);
   return ACTION_VERBS.some((verb) => lower.startsWith(verb) || lower.includes(` ${verb} `));
 }
 
-function getScoreClass(score) {
+export function getScoreClass(score: number): string {
   if (score >= 80) return "excellent";
   if (score >= 65) return "good";
   if (score >= 45) return "fair";
   return "poor";
 }
 
-function getRecommendation(score, missingCount, weaknessCount) {
+function getRecommendation(score: number): string {
   if (score >= 80) {
     return "Your resume is well-aligned with this role. Focus on tailoring your summary and top bullet points to mirror the job description language. You're ready to apply — consider adding one more quantified achievement to stand out.";
   }
@@ -97,7 +106,7 @@ function getRecommendation(score, missingCount, weaknessCount) {
   return "Your resume requires significant tailoring for this position. Restructure your experience to emphasize transferable skills, add role-specific keywords, and rewrite bullet points to demonstrate impact with concrete numbers.";
 }
 
-function improveBullet(bullet, jobTitle) {
+function improveBullet(bullet: string, jobTitle: string): string {
   let improved = bullet.trim();
   const lower = normalizeText(improved);
 
@@ -128,7 +137,7 @@ function improveBullet(bullet, jobTitle) {
   return improved;
 }
 
-function analyzeResume(resume, jobTitle) {
+export function analyzeResume(resume: string, jobTitle: string): ResumeAnalysis {
   const resumeLower = normalizeText(resume);
   const keywords = getKeywordsForJob(jobTitle);
   const bullets = extractBulletPoints(resume);
@@ -151,8 +160,8 @@ function analyzeResume(resume, jobTitle) {
     100
   );
 
-  const strengths = [];
-  const weaknesses = [];
+  const strengths: string[] = [];
+  const weaknesses: string[] = [];
 
   if (matchedKeywords.length >= keywords.length * 0.5) {
     strengths.push(`Strong keyword alignment — ${matchedKeywords.length} of ${keywords.length} role-relevant terms found.`);
@@ -222,105 +231,6 @@ function analyzeResume(resume, jobTitle) {
     weaknesses: weaknesses.slice(0, 5),
     missingKeywords: missingKeywords.slice(0, 8),
     improvedBullets,
-    recommendation: getRecommendation(score, missingKeywords.length, weaknesses.length),
+    recommendation: getRecommendation(score),
   };
 }
-
-function renderResults(analysis) {
-  const scoreClass = getScoreClass(analysis.score);
-
-  return `
-    <div class="results-animate">
-      <div class="score-card">
-        <p class="score-label">Resume Score</p>
-        <p class="score-value ${scoreClass}">${analysis.score}</p>
-        <p class="score-max">out of 100</p>
-        <div class="score-bar">
-          <div class="score-bar-fill" style="width: ${analysis.score}%"></div>
-        </div>
-      </div>
-
-      <div class="result-section">
-        <h3>Strengths <span class="badge badge-strength">Pro</span></h3>
-        <ul class="result-list">
-          ${analysis.strengths.map((s) => `<li>${s}</li>`).join("")}
-        </ul>
-      </div>
-
-      <div class="result-section">
-        <h3>Weaknesses <span class="badge badge-weakness">Fix</span></h3>
-        <ul class="result-list">
-          ${analysis.weaknesses.map((w) => `<li>${w}</li>`).join("")}
-        </ul>
-      </div>
-
-      <div class="result-section">
-        <h3>Missing Keywords <span class="badge badge-keywords">ATS</span></h3>
-        ${
-          analysis.missingKeywords.length > 0
-            ? `<div class="keyword-tags">${analysis.missingKeywords.map((k) => `<span class="keyword-tag">${k}</span>`).join("")}</div>`
-            : `<p class="recommendation-text">Great news — all key keywords for this role appear to be present.</p>`
-        }
-      </div>
-
-      <div class="result-section">
-        <h3>Improved Bullet Points <span class="badge badge-bullets">Tips</span></h3>
-        <ul class="result-list">
-          ${analysis.improvedBullets.map((b) => `<li>${b}</li>`).join("")}
-        </ul>
-      </div>
-
-      <div class="result-section">
-        <h3>Final Recommendation <span class="badge badge-recommendation">Next</span></h3>
-        <p class="recommendation-text">${analysis.recommendation}</p>
-      </div>
-    </div>
-  `;
-}
-
-function initResumeAnalyzer() {
-  const analyzeBtn = document.getElementById("analyzeBtn");
-  const resumeInput = document.getElementById("resumeInput");
-  const jobTitleInput = document.getElementById("jobTitleInput");
-  const resultsPanel = document.getElementById("resultsPanel");
-
-  if (!analyzeBtn || !resumeInput || !jobTitleInput || !resultsPanel) return;
-
-  analyzeBtn.addEventListener("click", () => {
-    const resume = resumeInput.value.trim();
-    const jobTitle = jobTitleInput.value.trim();
-
-    if (!resume) {
-      resumeInput.focus();
-      resumeInput.style.borderColor = "var(--danger)";
-      setTimeout(() => { resumeInput.style.borderColor = ""; }, 2000);
-      return;
-    }
-
-    if (!jobTitle) {
-      jobTitleInput.focus();
-      jobTitleInput.style.borderColor = "var(--danger)";
-      setTimeout(() => { jobTitleInput.style.borderColor = ""; }, 2000);
-      return;
-    }
-
-    analyzeBtn.disabled = true;
-    analyzeBtn.textContent = "Analyzing…";
-
-    resultsPanel.innerHTML = `
-      <div class="analyzing">
-        <div class="spinner"></div>
-        <p>Analyzing your resume…</p>
-      </div>
-    `;
-
-    setTimeout(() => {
-      const analysis = analyzeResume(resume, jobTitle);
-      resultsPanel.innerHTML = renderResults(analysis);
-      analyzeBtn.disabled = false;
-      analyzeBtn.textContent = "Analyze Resume";
-    }, 1200);
-  });
-}
-
-initResumeAnalyzer();
