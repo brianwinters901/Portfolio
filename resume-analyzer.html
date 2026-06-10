@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI Resume Analyzer — Get instant feedback on your resume for any job title.">
+  <title>AI Resume Analyzer | Brian Winters</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">Brian <span>Winters</span></a>
+      <button class="nav-toggle" aria-label="Toggle navigation" id="navToggle">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#experience">Experience</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="resume-analyzer.html" class="active">AI Resume Analyzer</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="analyzer-hero">
+    <div class="container">
+      <h1>AI Resume Analyzer</h1>
+      <p>
+        Paste your resume and enter a target job title to receive an instant analysis with
+        actionable feedback — no API key required.
+      </p>
+    </div>
+  </header>
+
+  <main class="container analyzer-layout">
+    <div class="form-panel">
+      <div class="form-group">
+        <label for="resumeInput">Your Resume</label>
+        <span class="hint">Paste your full resume text including experience, skills, and education.</span>
+        <textarea
+          id="resumeInput"
+          placeholder="e.g.&#10;&#10;Brian Winters&#10;Operations Specialist&#10;&#10;Experience:&#10;- Managed daily operational tasks at Renaissance Leasing&#10;- Built strong client relationships&#10;&#10;Skills: Leadership, Customer Service, AI Tools"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="jobTitleInput">Target Job Title</label>
+        <span class="hint">The role you're applying for.</span>
+        <input
+          type="text"
+          id="jobTitleInput"
+          placeholder="e.g. Operations Manager, Software Engineer, Business Analyst"
+        >
+      </div>
+
+      <button class="btn btn-primary analyze-btn" id="analyzeBtn">Analyze Resume</button>
+    </div>
+
+    <div class="results-panel" id="resultsPanel">
+      <div class="results-placeholder" id="resultsPlaceholder">
+        <span class="icon">📋</span>
+        <p>Your analysis results will appear here after you click <strong>Analyze Resume</strong>.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Brian Winters. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/resume-analyzer.js"></script>
+</body>
+</html>
