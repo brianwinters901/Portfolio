@@ -1,19 +1,28 @@
   # Brian Winters Portfolio
 
 ## About Me
-Motivated professional with experience in leadership, customer service, operations, and business development. Passionate about technology, AI, cloud solutions, and continuous learning.
-
+Aspiring AI and Software Engineer with a growing portfolio of cloud and AI projects. Currently building applications using GitHub, AWS, and modern AI tools while expanding my skills in software development, automation, and cloud computing. Passionate about solving problems, continuous learning, and creating technology that delivers real-world value.
 ## Skills
-- Leadership
-- Customer Service
-- Team Management
-- Problem Solving
-- Communication
-- AI Tools
-- Cloud Computing
-- Business Operations
+* AI Tools
+* Cloud Computing (AWS)
+* GitHub
+* Software Development
+* Python
+* Problem Solving
+* Leadership
+* Team Management
+* Customer Service
+* Communication
+## Projects
+Portfolio Website
 
-## Experience
+Personal portfolio website showcasing my projects, skills, and professional journey.
+
+Live Site:
+https://brianwinters901.github.io/brian-winters-portfolio/
+
+GitHub Repository:
+https://github.com/brianwinters901/brian-winters-portfolio
 ### Renaissance Leasing
 - Assisted customers with leasing solutions
 - Built strong client relationships
