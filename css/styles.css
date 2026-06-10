@@ -195,8 +195,23 @@ section {
 .hero-tagline {
   font-size: 1.15rem;
   color: var(--text-secondary);
-  max-width: 540px;
+  max-width: 620px;
   margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+/* ===== About ===== */
+.about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 720px;
+}
+
+.about-content p {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  line-height: 1.75;
 }
 
 .hero-actions {
