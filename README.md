@@ -32,7 +32,11 @@ Personal portfolio website showcasing my projects, skills, and professional jour
 
 Paste a resume and target job title to get instant feedback — score, strengths, weaknesses, missing keywords, and improved bullet points. Uses mock analysis (no API key required).
 
-Open `resume-analyzer.html` locally or via the portfolio site.
+### Calculator
+
+Responsive calculator with basic arithmetic (+, −, ×, ÷), percent, sign toggle, and keyboard support.
+
+Open `/calculator` locally or via the portfolio site.
 
 ## Experience
 
@@ -44,28 +48,51 @@ Open `resume-analyzer.html` locally or via the portfolio site.
 
 ## Running Locally
 
-Open `index.html` in your browser, or serve the folder with a local server:
-
 ```bash
-# Python
-python3 -m http.server 8080
-
-# Node (npx)
-npx serve .
+npm install
+npm run dev
 ```
 
-Then visit `http://localhost:8080`.
+Visit `http://localhost:3000`. The calculator lives at `/calculator`.
+
+For a static preview (same output as GitHub Pages):
+
+```bash
+npm run build:pages
+npx serve out
+```
+
+## Publishing to GitHub Pages
+
+Your site is already set up for static export. To publish updates:
+
+1. Commit and push your changes to GitHub.
+2. Run `npm run build:pages` — this builds the site and copies it into the `docs/` folder.
+3. Commit and push the updated `docs/` folder.
+4. In your repo on GitHub, go to **Settings → Pages** and set the source to **Deploy from a branch**, branch `main` (or `master`), folder **`/docs`**.
+
+Live site: https://brianwinters901.github.io/brian-winters-portfolio/
+
+After publishing, the calculator will be at:
+https://brianwinters901.github.io/brian-winters-portfolio/calculator/
 
 ## Project Structure
 
 ```
 Portfolio/
-├── index.html              # Homepage
-├── resume-analyzer.html    # AI Resume Analyzer page
-├── css/styles.css          # Shared styles
-├── js/
-│   ├── main.js             # Navigation & shared UI
-│   └── resume-analyzer.js  # Mock resume analysis logic
+├── app/
+│   ├── page.tsx                 # Homepage
+│   ├── calculator/page.tsx      # Calculator page
+│   └── resume-analyzer/page.tsx # AI Resume Analyzer page
+├── components/
+│   ├── Calculator.tsx
+│   ├── ResumeAnalyzer.tsx
+│   ├── Navbar.tsx
+│   └── Footer.tsx
+├── lib/
+│   ├── calculator.ts            # Calculator logic
+│   └── resume-analyzer.ts
+├── scripts/export-to-docs.mjs   # Copies build output to docs/ for GitHub Pages
 └── README.md
 ```
 
