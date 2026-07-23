@@ -109,10 +109,59 @@ export default function HomePage() {
               <div className="card-icon">🤖</div>
               <h3>AI Resume Analyzer</h3>
               <p>
-                Paste a resume and job description to get a match score, ATS keyword suggestions,
-                strengths, weaknesses, and improved bullet points.
+                An interactive resume analysis tool that evaluates candidate materials against a
+                target role. Generates a match score, ATS keyword gaps, strengths and weaknesses,
+                and rewritten bullet points to help improve application quality.
               </p>
-              <Link href="/resume-analyzer" className="btn btn-primary">Open AI Resume Analyzer</Link>
+              <div className="card-tech">
+                <p className="card-tech-label">Technologies Used</p>
+                <div className="card-tech-tags">
+                  <span className="skill-tag">Next.js</span>
+                  <span className="skill-tag">React</span>
+                  <span className="skill-tag">TypeScript</span>
+                  <span className="skill-tag">Client-side Analysis</span>
+                </div>
+              </div>
+              <div className="card-actions">
+                <Link href="/resume-analyzer" className="btn btn-primary">Open AI Resume Analyzer</Link>
+                <a
+                  href="https://github.com/brianwinters901/Portfolio"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-secondary"
+                >
+                  View Code
+                </a>
+              </div>
+            </div>
+            <div className="card">
+              <div className="card-icon">🧮</div>
+              <h3>Calculator</h3>
+              <p>
+                A polished, keyboard-friendly calculator that handles arithmetic operations, percent
+                calculations, and sign toggling. Built as a reusable React component with typed
+                state logic for reliable, predictable input handling.
+              </p>
+              <div className="card-tech">
+                <p className="card-tech-label">Technologies Used</p>
+                <div className="card-tech-tags">
+                  <span className="skill-tag">React</span>
+                  <span className="skill-tag">TypeScript</span>
+                  <span className="skill-tag">Next.js</span>
+                  <span className="skill-tag">CSS</span>
+                </div>
+              </div>
+              <div className="card-actions">
+                <Link href="/calculator" className="btn btn-primary">Open Calculator</Link>
+                <a
+                  href="https://github.com/brianwinters901/Portfolio"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-secondary"
+                >
+                  View Code
+                </a>
+              </div>
             </div>
           </div>
         </div>

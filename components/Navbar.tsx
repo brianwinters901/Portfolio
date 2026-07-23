@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 interface NavbarProps {
-  activePath?: "home" | "resume-analyzer";
+  activePath?: "home" | "resume-analyzer" | "calculator";
 }
 
 export default function Navbar({ activePath = "home" }: NavbarProps) {
@@ -49,6 +49,15 @@ export default function Navbar({ activePath = "home" }: NavbarProps) {
               onClick={() => setMenuOpen(false)}
             >
               AI Resume Analyzer
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/calculator"
+              className={activePath === "calculator" ? "active" : undefined}
+              onClick={() => setMenuOpen(false)}
+            >
+              Calculator
             </Link>
           </li>
         </ul>
